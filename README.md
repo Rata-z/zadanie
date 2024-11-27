@@ -7,7 +7,7 @@ Follow these steps to set up and run the project locally:
 Clone the project from GitHub using the following command:
 
 ```bash
-git clone https://github.com/your-repository-name.git
+git clone https://github.com/Rata-z/zadanie.git
 ```
 
 ### 2. Install dependencies
