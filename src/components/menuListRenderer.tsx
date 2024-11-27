@@ -1,48 +1,26 @@
 "use client";
-import { ListContextType, MenuObject } from "@/lib/types";
+import { FormMenuObject, ListContextType, MenuObject } from "@/lib/types";
 import React, { useContext, useState } from "react";
-import MenuListItem from "./menuListItem";
+import MenuListItem from "./listItem/menuListItem";
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
-import AddMenuForm from "./addMenuForm";
-import { ListContext } from "@/context/listContext";
+import AddMenuForm from "./menuForm.tsx/addMenuForm";
+import { ListContext } from "@/contexts/listContext";
+import { assertLinkType } from "@/lib/utils";
 
 export default function MenuListRenderer() {
-  const [editedItemId, setEditedItemId] = useState<number | null>(null);
-  const [activeParentId, setActiveParentId] = useState<number | null>(null);
   const {
     list,
-    handleEditItem,
-    handleAddItem,
+    handleFormSubmit,
+    handleFormToggle,
+    editedItemId,
+    activeParentId,
     handleDeleteItem,
-    reorderAtSameLevel,
+    handleDragEnd,
   } = useContext(ListContext) as ListContextType;
-
-  const handleEditClick = (id: number) => {
-    setActiveParentId(null);
-    setEditedItemId(id);
-  };
-
-  const handleAddItemClick = (itemId: number) => {
-    setEditedItemId(null);
-    setActiveParentId(itemId);
-  };
-
-  const handleCancel = () => {
-    setActiveParentId(null);
-    setEditedItemId(null);
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    if (!over || active.id === over.id) return;
-
-    reorderAtSameLevel(list, active.id as number, over.id as number);
-  };
 
   const renderMenuList = (menus: MenuObject[], level = 0) => (
     <ul
@@ -59,19 +37,12 @@ export default function MenuListRenderer() {
                 id={item.id}
                 label={item.label}
                 url={item.url}
-                linkType={
-                  item.url
-                    ? item.url.includes("https://www.")
-                      ? "URL"
-                      : "collection"
-                    : undefined
-                }
+                linkType={assertLinkType(item.url)}
                 isParent={item.children.length > 0}
                 isChildren={level > 0}
                 isLastChildren={level > 0 && menus.length === index + 1}
                 handleDelete={handleDeleteItem}
-                handleAddChild={handleAddItemClick}
-                handleEdit={handleEditClick}
+                handleOpenForm={handleFormToggle}
                 activeForm={activeParentId === item.id}
               />
             )}
@@ -79,19 +50,11 @@ export default function MenuListRenderer() {
             {(activeParentId === item.id || editedItemId === item.id) && (
               <>
                 <div
-                  className={`py-4 ${activeParentId && level > 0 && "pl-16"} ${((editedItemId && level < 1) || (activeParentId && level < 1)) && "pl-6"} pr-6`}
+                  className={`py-4 ${activeParentId && "pl-16"} ${editedItemId && level < 1 && "pl-6"} pr-6`}
                 >
                   <AddMenuForm
-                    onSubmit={(data) => {
-                      if (editedItemId === item.id) {
-                        handleEditItem(item.id, data);
-                        setEditedItemId(null);
-                      } else if (activeParentId === item.id) {
-                        handleAddItem(data, activeParentId);
-                        setActiveParentId(null);
-                      }
-                    }}
-                    handleCancel={handleCancel}
+                    onSubmit={(data) => handleFormSubmit(data, item.id)}
+                    handleCancel={handleFormToggle}
                     editedData={
                       editedItemId === item.id
                         ? { label: item.label, url: item.url }
@@ -104,6 +67,7 @@ export default function MenuListRenderer() {
                 )}
               </>
             )}
+
             {item.children.length > 0 &&
               renderMenuList(item.children, level + 1)}
           </li>

@@ -1,5 +1,6 @@
 import React from "react";
 import { FiPlusCircle } from "react-icons/fi";
+import Button from "./button";
 
 export default function EmptyMenu({ onAddMenu }: { onAddMenu: () => void }) {
   return (
@@ -12,12 +13,12 @@ export default function EmptyMenu({ onAddMenu }: { onAddMenu: () => void }) {
           W tym menu nie ma jeszcze żadnych linków
         </p>
       </div>
-      <button
-        onClick={() => onAddMenu()}
-        className="flex flex-row items-center gap-1 rounded-lg bg-[#7F56D9] px-[0.875rem] py-[0.625rem] text-sm font-semibold text-[#FFFFFF]"
+      <Button
+        handleClick={() => onAddMenu()}
+        buttonStyle="flex flex-row items-center gap-1 bg-[#7F56D9] px-[0.875rem] text-[#FFFFFF]"
       >
         <FiPlusCircle size="1.25rem" /> <h1>Dodaj pozycję menu</h1>
-      </button>
+      </Button>
     </div>
   );
 }

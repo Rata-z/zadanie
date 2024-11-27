@@ -1,3 +1,7 @@
+import { DragEndEvent } from "@dnd-kit/core";
+import { ReactNode } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
+
 export type MenuObject = {
   id: number;
   label: string;
@@ -7,14 +11,12 @@ export type MenuObject = {
 
 export type ListContextType = {
   list: MenuObject[];
-  handleEditItem: (id: number, updatedData: FormMenuObject) => void;
-  handleAddItem: (object: FormMenuObject, parentId: number) => void;
   handleDeleteItem: (id: number) => void;
-  reorderAtSameLevel: (
-    menus: MenuObject[],
-    activeId: number,
-    overId: number,
-  ) => void;
+  editedItemId: number | null;
+  activeParentId: number | null;
+  handleFormToggle: (id?: number, action?: "Add" | "Edit") => void;
+  handleFormSubmit: (data: FormMenuObject, id?: number) => void;
+  handleDragEnd: (event: DragEndEvent) => void;
 };
 
 export type FormMenuObject = {
@@ -31,7 +33,20 @@ export type ItemProps = {
   isChildren?: boolean;
   isParent?: boolean;
   handleDelete: (id: number) => void;
-  handleAddChild: (id: number) => void;
-  handleEdit: (id: number) => void;
+  handleOpenForm: (id: number, action: "Add" | "Edit") => void;
   activeForm?: boolean;
+};
+export type AddMenuFormProps = {
+  handleCancel: () => void;
+  onSubmit: (object: FormMenuObject) => void;
+  editedData?: FormMenuObject;
+  borderVisible?: boolean;
+};
+
+export type InputProps = {
+  labelText: string;
+  inputStyle: string;
+  placeholder: string;
+  children: ReactNode;
+  inputActions: UseFormRegisterReturn;
 };
