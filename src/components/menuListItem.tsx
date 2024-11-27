@@ -3,6 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import React from "react";
 import { FiMove } from "react-icons/fi";
 import { CSS } from "@dnd-kit/utilities";
+import { cn } from "@/lib/cn";
 
 export default function MenuListItem(item: ItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -10,13 +11,11 @@ export default function MenuListItem(item: ItemProps) {
   const linkTypeStyles = {
     collection: {
       linkLabel: "kolekcja",
-      className:
-        "rounded-md py-[0.125rem] px-[0.375rem] border-[0.0625rem] bg-[#F9F5FF] border-[#E9D7FE] text-[#6941C6]",
+      className: "bg-[#F9F5FF] border-[#E9D7FE] text-[#6941C6]",
     },
     URL: {
       linkLabel: "URL",
-      className:
-        "rounded-md py-[0.125rem] px-[0.375rem] border-[0.0625rem] bg-[#F9FAFB] border-[#EAECF0] text-[#344054]",
+      className: "bg-[#F9FAFB] border-[#EAECF0] text-[#344054]",
     },
   };
   const style = {
@@ -45,18 +44,25 @@ export default function MenuListItem(item: ItemProps) {
 
         <div className="flex flex-grow flex-col gap-[0.375rem]">
           <div className="flex items-center gap-2">
-            <h2 className="font-semibold text-[#101828]">{item.label}</h2>
+            <h2 className="text-sm font-semibold text-[#101828]">
+              {item.label}
+            </h2>
             {item.linkType && (
-              <span className={linkTypeStyles[item.linkType].className}>
+              <span
+                className={cn(
+                  linkTypeStyles[item.linkType].className,
+                  "rounded-md border-[0.0625rem] px-[0.375rem] py-[0.125rem] text-xs",
+                )}
+              >
                 {linkTypeStyles[item.linkType].linkLabel}
               </span>
             )}
           </div>
 
-          <p className="text-[#475467]">{item.link}</p>
+          <p className="text-sm text-[#475467]">{item.url}</p>
         </div>
       </div>
-      <div className="flex divide-x-[0.0625rem] rounded-lg border-[0.0625rem] border-[#D0D5DD] font-semibold text-[#344054]">
+      <div className="flex divide-x-[0.0625rem] rounded-lg border-[0.0625rem] border-[#D0D5DD] text-sm font-semibold text-[#344054]">
         <button
           className="px-4 py-2"
           onClick={() => item.handleDelete(item.id)}

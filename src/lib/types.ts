@@ -1,19 +1,31 @@
 export type MenuObject = {
   id: number;
   label: string;
-  link?: string;
+  url?: string;
   children: MenuObject[];
+};
+
+export type ListContextType = {
+  list: MenuObject[];
+  handleEditItem: (id: number, updatedData: FormMenuObject) => void;
+  handleAddItem: (object: FormMenuObject, parentId: number) => void;
+  handleDeleteItem: (id: number) => void;
+  reorderAtSameLevel: (
+    menus: MenuObject[],
+    activeId: number,
+    overId: number,
+  ) => void;
 };
 
 export type FormMenuObject = {
   label: string;
-  link?: string;
+  url?: string;
 };
 export type LinkTypes = "URL" | "collection";
 export type ItemProps = {
   id: number;
   label: string;
-  link?: string;
+  url?: string;
   linkType?: LinkTypes;
   isLastChildren?: boolean;
   isChildren?: boolean;
