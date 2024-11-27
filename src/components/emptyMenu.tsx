@@ -13,7 +13,10 @@ import Button from "./button";
 export default function EmptyMenu({ onAddMenu }: { onAddMenu: () => void }) {
   return (
     <div className="flex flex-col items-center gap-6 rounded-lg border-[0.0625rem] border-[#EAECF0] bg-[#f9fafb] px-4 py-5">
-      <div className="flex flex-col items-center gap-1">
+      <div
+        data-testid="empty-message"
+        className="flex flex-col items-center gap-1"
+      >
         <h2 className="text-base font-semibold text-[#101828]">
           Menu jest puste
         </h2>

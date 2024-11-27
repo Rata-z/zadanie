@@ -11,6 +11,7 @@ import {
   closestCenter,
   DndContext,
   KeyboardSensor,
+  MouseSensor,
   PointerSensor,
   TouchSensor,
   useSensor,
@@ -41,6 +42,7 @@ export default function MenuListRenderer() {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(TouchSensor),
+    useSensor(MouseSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),

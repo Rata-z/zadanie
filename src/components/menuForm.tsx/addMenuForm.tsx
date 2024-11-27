@@ -38,6 +38,7 @@ export default function AddMenu({
     >
       <div className="flex flex-row gap-4">
         <form
+          data-testid="add-menu"
           id="add-menu"
           className="flex flex-grow flex-col gap-2"
           onSubmit={handleSubmit(onSubmit)}
@@ -49,7 +50,7 @@ export default function AddMenu({
             inputActions={{ ...register("label", { required: true }) }}
           >
             {errors.label && (
-              <span className="text-sm text-[#475467]">
+              <span data-testid="hint-text" className="text-sm text-[#475467]">
                 To pole jest wymagane.
               </span>
             )}
@@ -81,6 +82,7 @@ export default function AddMenu({
           Anuluj
         </Button>
         <Button
+          data-testid="submit-button"
           buttonStyle="border-[0.0625rem] border-[#D6BBFB] bg-white px-4  text-[#6941C6]"
           form="add-menu"
           type="submit"

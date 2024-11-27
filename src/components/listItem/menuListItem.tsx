@@ -31,6 +31,7 @@ export default function MenuListItem(item: ItemProps) {
 
   return (
     <div
+      data-testid="list-item"
       ref={setNodeRef}
       style={style}
       className={cn(

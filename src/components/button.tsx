@@ -24,6 +24,7 @@ export default function Button({
 } & ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
+      data-testid="menu-button"
       {...props}
       className={cn(
         "rounded-lg py-[0.625rem] text-sm font-semibold",
