@@ -2,6 +2,14 @@ import { LinkTypes } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import React from "react";
 
+/**
+ * A component that displays a label indicating the type of link (either "collection" or "URL").
+ *
+ * @param {LinkTypes} props.linkType - The type of the link (either "collection" or "URL").
+ *
+ * @returns {JSX.Element} A span element displaying the label with appropriate styles.
+ */
+
 export default function LinkLabel({ linkType }: { linkType: LinkTypes }) {
   const linkTypeStyles = {
     collection: {

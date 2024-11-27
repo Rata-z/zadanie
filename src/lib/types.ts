@@ -23,6 +23,7 @@ export type FormMenuObject = {
   label: string;
   url?: string;
 };
+
 export type LinkTypes = "URL" | "collection";
 export type ItemProps = {
   id: number;
@@ -32,8 +33,6 @@ export type ItemProps = {
   isLastChildren?: boolean;
   isChildren?: boolean;
   isParent?: boolean;
-  handleDelete: (id: number) => void;
-  handleOpenForm: (id: number, action: "Add" | "Edit") => void;
   activeForm?: boolean;
 };
 export type AddMenuFormProps = {

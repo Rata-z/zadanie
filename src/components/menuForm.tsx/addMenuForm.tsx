@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { TbTrash } from "react-icons/tb";
 import { useForm } from "react-hook-form";
@@ -5,6 +6,19 @@ import { AddMenuFormProps, FormMenuObject } from "@/lib/types";
 import { LuSearch } from "react-icons/lu";
 import Button from "../button";
 import MenuInput from "./menuInput";
+
+/**
+ * AddMenu component renders a form for adding or editing a menu item.
+ * It allows the user to input a label and URL for the menu item.
+ * The form can be submitted or canceled, with the form appearing differently based on whether it is in edit mode or create mode.
+ *
+ * @param {AddMenuFormProps} props - The properties for the AddMenu component.
+ * @param {Function} handleCancel - Function to handle cancel action.
+ * @param {Function} onSubmit - Function to handle form submission.
+ * @param {FormMenuObject} [editedData] - The data to prefill the form for editing (optional).
+ * @param {boolean} [borderVisible=true] - Boolean to determine whether the component's border should be visible (optional).
+ * @returns {JSX.Element} A JSX element containing the form for adding or editing a menu item.
+ */
 
 export default function AddMenu({
   handleCancel,

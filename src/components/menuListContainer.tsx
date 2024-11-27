@@ -7,6 +7,15 @@ import { ListContext } from "@/contexts/listContext";
 import { ListContextType } from "@/lib/types";
 import Button from "./button";
 
+/**
+ * MenuListContainer component contains a list of menu items or an empty state when no items exist.
+ * It includes functionality to toggle the form for adding a new menu item and display a form when needed.
+ * If the menu list is empty, it shows an EmptyMenu component with an option to add a menu item.
+ * If the list has items, it displays the MenuListRenderer and an option to add a new item.
+ *
+ * @returns {JSX.Element} A container that displays either a list of menu items or an empty state with the option to add new items.
+ */
+
 export default function MenuListContainer() {
   const [formVisible, setFormVisible] = useState(false);
   const { list, handleFormSubmit } = useContext(ListContext) as ListContextType;

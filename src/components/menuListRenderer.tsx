@@ -1,15 +1,23 @@
 "use client";
-import { FormMenuObject, ListContextType, MenuObject } from "@/lib/types";
-import React, { useContext, useState } from "react";
+import { ListContextType, MenuObject } from "@/lib/types";
+import React, { useContext } from "react";
 import MenuListItem from "./listItem/menuListItem";
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
+import { closestCenter, DndContext } from "@dnd-kit/core";
 import AddMenuForm from "./menuForm.tsx/addMenuForm";
 import { ListContext } from "@/contexts/listContext";
 import { assertLinkType } from "@/lib/utils";
+
+/**
+ * MenuListRenderer component renders a sortable list of menu items, allowing for nested menu structures.
+ * It supports drag-and-drop functionality for reordering the list items and renders forms for editing menu items.
+ * The component conditionally renders each menu item, its children, and associated forms based on the current state.
+ *
+ * @returns {JSX.Element} A JSX element rendering the sortable menu list with drag-and-drop support.
+ */
 
 export default function MenuListRenderer() {
   const {
@@ -41,8 +49,6 @@ export default function MenuListRenderer() {
                 isParent={item.children.length > 0}
                 isChildren={level > 0}
                 isLastChildren={level > 0 && menus.length === index + 1}
-                handleDelete={handleDeleteItem}
-                handleOpenForm={handleFormToggle}
                 activeForm={activeParentId === item.id}
               />
             )}

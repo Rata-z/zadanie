@@ -4,6 +4,15 @@ import { addItem, removeItem, reorderList, updateItem } from "@/lib/utils";
 import { DragEndEvent } from "@dnd-kit/core";
 import React, { createContext, useState, ReactNode } from "react";
 
+/**
+ * ListContextProvider component provides the context for managing a menu list,
+ * including actions for adding, editing, deleting, and reordering items.
+ * It also handles toggling forms for adding or editing items and manages the state for the current item being edited.
+ *
+ * @param {ReactNode} props.children - The child components to be wrapped by the provider.
+ * @returns {JSX.Element} A JSX element that provides context for managing the menu list.
+ */
+
 export const ListContext = createContext<ListContextType | null>(null);
 
 export default function ListContextProvider({

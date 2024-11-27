@@ -1,10 +1,20 @@
-import { ItemProps } from "@/lib/types";
+"use client";
+import { ItemProps, ListContextType } from "@/lib/types";
 import { useSortable } from "@dnd-kit/sortable";
-import React from "react";
+import React, { useContext } from "react";
 import { FiMove } from "react-icons/fi";
 import { CSS } from "@dnd-kit/utilities";
 import LinkLabel from "./linkLabel";
 import { cn } from "@/lib/utils";
+import { ListContext } from "@/contexts/listContext";
+
+/**
+ * This component represents an individual menu item in a sortable list.
+ * It includes drag-and-drop functionality and actions like edit, delete, and add child items.
+ *
+ * @param {ItemProps} item - The properties for the individual menu item.
+ * @returns {JSX.Element} A styled `div` with the menu item details and actions.
+ */
 
 export default function MenuListItem(item: ItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -14,6 +24,10 @@ export default function MenuListItem(item: ItemProps) {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
+  const { handleFormToggle, handleDeleteItem } = useContext(
+    ListContext,
+  ) as ListContextType;
 
   return (
     <div
@@ -47,21 +61,18 @@ export default function MenuListItem(item: ItemProps) {
       </div>
 
       <div className="flex divide-x-[0.0625rem] rounded-lg border-[0.0625rem] border-[#D0D5DD] text-sm font-semibold text-[#344054]">
-        <button
-          className="px-4 py-2"
-          onClick={() => item.handleDelete(item.id)}
-        >
+        <button className="px-4 py-2" onClick={() => handleDeleteItem(item.id)}>
           Usuń
         </button>
         <button
           className="px-4 py-2"
-          onClick={() => item.handleOpenForm(item.id, "Edit")}
+          onClick={() => handleFormToggle(item.id, "Edit")}
         >
           Edytuj
         </button>
         <button
           className="px-4 py-2"
-          onClick={() => item.handleOpenForm(item.id, "Add")}
+          onClick={() => handleFormToggle(item.id, "Add")}
         >
           Dodaj pozycję menu
         </button>
