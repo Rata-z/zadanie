@@ -48,9 +48,9 @@ npm run dev
 To run end-to-end (E2E) tests, open Cypress:
 
 ```bash
-npm run cypress open
+npm run cypress:open
 ```
 
-This will launch the Cypress test runner where you can execute your E2E tests.
+This will launch the Cypress test runner where you can execute E2E tests.
 
 ---
