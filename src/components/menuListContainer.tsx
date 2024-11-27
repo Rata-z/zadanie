@@ -37,7 +37,8 @@ export default function MenuListContainer() {
             >
               <AddMenuForm
                 onSubmit={(data) => {
-                  handleFormSubmit(data), toggleForm();
+                  handleFormSubmit(data);
+                  toggleForm();
                 }}
                 handleCancel={toggleForm}
                 editedData={undefined}

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import React, { ReactNode } from "react";
+import React, { ButtonHTMLAttributes, ReactNode } from "react";
 
 /**
  * Button component renders a customizable button with optional click handling and custom styles.
@@ -21,8 +21,7 @@ export default function Button({
   children: ReactNode;
   handleClick?: () => void;
   buttonStyle: string;
-  [key: string]: any;
-}) {
+} & ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       {...props}

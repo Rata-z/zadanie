@@ -4,9 +4,18 @@ import React, { useContext } from "react";
 import MenuListItem from "./listItem/menuListItem";
 import {
   SortableContext,
+  sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { closestCenter, DndContext } from "@dnd-kit/core";
+import {
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import AddMenuForm from "./menuForm.tsx/addMenuForm";
 import { ListContext } from "@/contexts/listContext";
 import { assertLinkType } from "@/lib/utils";
@@ -26,9 +35,16 @@ export default function MenuListRenderer() {
     handleFormToggle,
     editedItemId,
     activeParentId,
-    handleDeleteItem,
     handleDragEnd,
   } = useContext(ListContext) as ListContextType;
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
   const renderMenuList = (menus: MenuObject[], level = 0) => (
     <ul
@@ -83,7 +99,11 @@ export default function MenuListRenderer() {
   );
 
   return (
-    <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+      collisionDetection={closestCenter}
+    >
       {renderMenuList(list)}
     </DndContext>
   );

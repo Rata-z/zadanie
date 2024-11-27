@@ -38,11 +38,13 @@ export default function ListContextProvider({
       url: object.url,
       children: [],
     };
-    parentId
-      ? setList((prevList) => {
-          return addItem(prevList, parentId, newItem);
-        })
-      : setList((prevList) => [...prevList, newItem]);
+    if (parentId) {
+      setList((prevList) => {
+        return addItem(prevList, parentId, newItem);
+      });
+    } else {
+      setList((prevList) => [...prevList, newItem]);
+    }
   };
 
   const handleDeleteItem = (id: number) => {

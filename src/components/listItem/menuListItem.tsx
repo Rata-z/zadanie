@@ -34,7 +34,7 @@ export default function MenuListItem(item: ItemProps) {
       ref={setNodeRef}
       style={style}
       className={cn(
-        "flex items-center gap-1 overflow-hidden border-[#EAECF0] bg-white pr-6",
+        "flex touch-none items-center gap-1 overflow-hidden border-[#EAECF0] bg-white pr-6",
         (item.isParent || item.activeForm) && "border-b-[0.0625rem]",
         item.isChildren && "border-l-[0.0625rem]",
         (item.isLastChildren || item.isParent) && "rounded-bl-md",
